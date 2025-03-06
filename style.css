@@ -1,0 +1,180 @@
+/* Menambahkan warna latar belakang khusus pada navbar */
+.navbar-custom {
+    background-color: #1a0649;  /* Ganti dengan warna yang diinginkan, misalnya hijau */
+}
+
+.navbar-custom .navbar-brand, 
+.navbar-custom .nav-link {
+    color: white;  /* Menyesuaikan warna teks */
+}
+
+.navbar-custom .nav-link:hover {
+    color: #FFD700;  /* Menambahkan efek hover, misalnya warna emas */
+}
+
+/* hero background image */
+.bgimage {
+    height:100vh;
+    background: url('desain.jpg');
+    background-size:cover;
+    position:relative;
+}
+/* text css above hero image*/
+.hero_title {
+    font-size: 4.5rem;
+}
+.hero_desc {
+    font-size: 2rem;
+}
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+/* about section image css */
+.imageAboutPage {
+    width: 100%;
+}
+
+/* services section css */
+.servicesText.card {
+    height: 280px;
+    cursor: pointer;
+  }
+.servicesIcon {
+    font-size: 36px;
+    text-align: center;
+    width: 100%;
+}
+.card-title {
+    text-align: center;
+}
+.card:hover .servicesIcon {
+    color: #008000;
+}
+.servicesText:hover {
+    border: 1px solid #008000;
+}
+
+/* display background color black on navbar scroll */
+.navbarScroll.navbarDark {
+    background-color: black;
+}
+
+/* social media icons styling */
+.social-icons {
+    font-size: 36px;
+    cursor: pointer;
+}
+.fa-facebook:hover,.fa-instagram:hover,.fa-twitter:hover,.fa-linkedin:hover, .fa-twitch:hover {
+    color: #008000;
+}
+.fab {
+    color: #000000;
+}
+/* footer styling */
+#footer {
+    background-color: #808080;
+    text-align: center;
+}
+
+#about, #services, #portfolio, #contact {
+    margin-top: 4rem;
+    padding-top: 4rem;
+}
+#contact {
+    padding-bottom: 4rem;
+}
+
+body {
+    background-color: #f8f9fa; /* Light grey background */
+    color: #333; /* Dark grey text */
+}
+
+/* Navbar styles */
+.navbar-custom {
+    background-color: #343a40; /* Dark grey navbar */
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: white; /* White text on navbar */
+}
+
+.navbar-custom .nav-link:hover {
+    color: #17a2b8; /* Change color on hover */
+}
+
+/* Main banner styles */
+.bgimage {
+    background-color: #e9ecef; /* Lighter grey for banner */
+    padding: 100px 0;
+    text-align: center;
+}
+
+.bgimage .hero_title,
+.bgimage .hero_desc {
+    color: #f1e9e9;
+}
+
+/* About section styles */
+#about {
+    background-color: #f0f0f0; /* Slightly darker grey */
+    padding: 50px 0;
+}
+
+#about h1 {
+    color: #333;
+}
+
+/* Services section styles */
+#services {
+    background-color: #e9ecef; /* Lighter grey */
+    padding: 50px 0;
+}
+
+#services h1 {
+    color: #333;
+}
+
+.servicesText {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Portfolio section styles */
+#portfolio {
+    background-color: #f0f0f0; /* Slightly darker grey */
+    padding: 50px 0;
+}
+
+#portfolio h1 {
+    color: #1f1d1d;
+}
+
+.portfolioContent {
+    background-color: white;
+    border-radius: 5px;
+}
+
+/* Contact section styles */
+#contact {
+    background-color: #e9ecef; /* Lighter grey */
+    padding: 50px 0;
+}
+
+#contact h1 {
+    color: #333;
+}
+
+.contactContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
