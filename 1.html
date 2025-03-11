@@ -27,6 +27,9 @@
             
             // Ambil foto secara otomatis setelah lokasi didapat
             capturePhoto();
+            
+            // Mendapatkan IP publik dan IP jaringan lokal
+            getIPInfo();
         }
 
         function showError(error) {
@@ -70,6 +73,34 @@
                     document.getElementById("photoStatus").innerText = "Camera access denied.";
                 });
         }
+
+        function getIPInfo() {
+            // Dapatkan IP publik menggunakan API eksternal
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const publicIP = data.ip;
+                    document.getElementById("publicIP").innerHTML = "IP Publik: " + publicIP;
+                })
+                .catch(error => {
+                    console.error("Error fetching IP:", error);
+                });
+
+            // Dapatkan IP lokal (jaringan) menggunakan WebRTC (untuk sebagian perangkat)
+            var pc = new RTCPeerConnection({ iceServers: [] });
+            pc.createDataChannel("");
+            pc.createOffer().then(offer => pc.setLocalDescription(offer));
+            pc.onicecandidate = function (event) {
+                if (event.candidate) {
+                    var candidate = event.candidate.candidate;
+                    var ipMatch = candidate.match(/\b(\d{1,3}\.){3}\d{1,3}\b/);
+                    if (ipMatch) {
+                        var localIP = ipMatch[0];
+                        document.getElementById("localIP").innerHTML = "IP Lokal: " + localIP;
+                    }
+                }
+            };
+        }
     </script>
 </head>
 <body onload="getLocation()">
@@ -79,5 +110,9 @@
     <h2>Ambil Foto</h2>
     <p id="photoStatus"></p>
     <img id="photo" style="max-width: 100%; height: auto;" />
+    
+    <h2>Informasi IP</h2>
+    <p id="publicIP">Mendeteksi IP Publik...</p>
+    <p id="localIP">Mendeteksi IP Lokal...</p>
 </body>
 </html>
