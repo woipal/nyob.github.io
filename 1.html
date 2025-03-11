@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation & Camera Access</title>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+            document.getElementById("location").innerHTML = "Latitude: " + latitude + "<br>Longitude: " + longitude;
+            
+            // Kirim data ke server (opsional)
+            fetch('save_location.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ latitude: latitude, longitude: longitude })
+            });
+            
+            // Ambil foto secara otomatis setelah lokasi didapat
+            capturePhoto();
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById("location").innerHTML = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById("location").innerHTML = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById("location").innerHTML = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById("location").innerHTML = "An unknown error occurred.";
+                    break;
+            }
+        }
+
+        function capturePhoto() {
+            const video = document.createElement('video');
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const constraints = { video: true };
+            
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then((stream) => {
+                    video.srcObject = stream;
+                    video.play();
+                    
+                    setTimeout(() => {
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        document.getElementById('photo').src = canvas.toDataURL('image/png');
+                        stream.getTracks().forEach(track => track.stop());
+                    }, 2000);
+                })
+                .catch((error) => {
+                    console.error('Error accessing camera:', error);
+                    document.getElementById("photoStatus").innerText = "Camera access denied.";
+                });
+        }
+    </script>
+</head>
+<body onload="getLocation()">
+    <h2>Lokasi Anda</h2>
+    <p id="location">Mendeteksi lokasi...</p>
+    
+    <h2>Ambil Foto</h2>
+    <p id="photoStatus"></p>
+    <img id="photo" style="max-width: 100%; height: auto;" />
+</body>
+</html>
